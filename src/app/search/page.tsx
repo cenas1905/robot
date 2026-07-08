@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Cpu, Code, MessageSquare, Star, GitFork, ArrowUp, ArrowDown, Search as SearchIcon, ExternalLink } from "lucide-react";
-import Link from "next/link";
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
 
@@ -126,5 +125,18 @@ export default function SearchPage() {
         </article>
       ))}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col items-center justify-center py-20 text-neutral-400">
+        <SearchIcon className="w-12 h-12 mb-4 animate-bounce text-blue-500" />
+        <p>Arama motoru yükleniyor...</p>
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
   );
 }
