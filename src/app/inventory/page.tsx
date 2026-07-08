@@ -8,6 +8,7 @@ export default function InventoryMatcher() {
   const [items, setItems] = useState(["Arduino Uno", "L298N Motor Sürücü", "2x DC Motor"]);
   const [newItem, setNewItem] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const [suggestedProjects, setSuggestedProjects] = useState<any[]>([]);
 
   const addItem = (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,16 +111,35 @@ export default function InventoryMatcher() {
       </div>
 
       {/* Results placeholder */}
-      <div className="space-y-4 opacity-50">
-        <h2 className="text-xl font-bold mb-4">Önerilen Projeler (Simülasyon)</h2>
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 flex items-center justify-between">
-          <div>
-            <h3 className="font-bold text-white mb-1">Bluetooth Kontrollü Araba</h3>
-            <p className="text-sm text-neutral-400">Elindeki malzemelerin %90'ı ile yapabilirsin. Sadece HC-06 Bluetooth modülü eksik.</p>
-          </div>
-          <button className="px-4 py-2 bg-neutral-800 rounded-lg text-sm font-medium hover:bg-neutral-700">Detaylar</button>
+      {suggestedProjects.length > 0 && (
+        <div className="space-y-4 mt-8">
+          <h2 className="text-xl font-bold mb-4 flex items-center">
+            <Sparkles className="w-5 h-5 mr-2 text-emerald-400" />
+            Yapay Zeka Tarafından Özel Üretilen Projeler
+          </h2>
+          {suggestedProjects.map((project, index) => (
+            <div key={index} className="bg-neutral-900 border border-emerald-900/50 rounded-xl p-4 md:p-6 hover:border-emerald-700 transition-colors">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="text-xl font-bold text-emerald-300">{project.title}</h3>
+                <span className="text-xs font-bold bg-emerald-900/40 text-emerald-400 px-2 py-1 rounded-full border border-emerald-800/50">
+                  {project.author}
+                </span>
+              </div>
+              <p className="text-sm text-neutral-300 leading-relaxed mb-4">{project.description}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags?.map((tag: string) => (
+                  <span key={tag} className="text-xs text-neutral-400 bg-neutral-800 px-2 py-1 rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <button className="px-4 py-2 bg-emerald-600/20 text-emerald-400 rounded-lg text-sm font-medium hover:bg-emerald-600 hover:text-white transition-colors w-full sm:w-auto">
+                Projeyi İncele
+              </button>
+            </div>
+          ))}
         </div>
-      </div>
+      )}
     </div>
   );
 }
