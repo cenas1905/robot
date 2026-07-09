@@ -12,7 +12,7 @@ export function SplineHero() {
       />
       
       {/* 3D Background - Placed absolutely to fill the container */}
-      <div className="absolute inset-0 z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-700 flex justify-end">
+      <div className="absolute inset-0 z-0 flex justify-end">
         <div className="w-full md:w-2/3 h-full">
           <SplineScene 
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
